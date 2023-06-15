@@ -1,0 +1,32 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('Clone Repository') {
+      steps {
+        git 'https://github.com/yashp119/project111.git'
+      }
+    }
+    
+    stage('Build Web Server') {
+      steps {
+        // Add commands to build and configure the web server (e.g., Apache, Nginx)
+        // Example:
+        sh 'sudo apt update'
+        sh 'sudo apt install apache2 -y'
+      }
+    }
+    
+    stage('Build and Deploy WordPress') {
+      steps {
+        // Add commands to deploy WordPress
+        // Example:
+        sh 'wget https://wordpress.org/latest.tar.gz'
+        sh 'tar -xzf latest.tar.gz'
+        sh 'sudo mv wordpress/* /var/www/html/'
+        sh 'sudo chown -R www-data:www-data /var/www/html/'
+        sh 'sudo chmod -R 755 /var/www/html/'
+      }
+    }
+  }
+}
